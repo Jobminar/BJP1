@@ -17,6 +17,8 @@ export default function App() {
   const [capturing, setCapturing] = useState(false);
   const viewShotRef = useRef();
   const clear = () => {
+    
+    setData('')
     setNewHouse('')
     setNewPartNo('')
     setNewHouse('')
@@ -72,7 +74,7 @@ export default function App() {
     } catch (err) {
       console.error('Error fetching data:', err);
     }
-  }, [newVid, newPartNo, newHouse]);
+  }, [newVid, newPartNo, newHouse,data]);
 
   const downloadCard = async () => {
     try {
@@ -129,9 +131,14 @@ export default function App() {
   
 
   const renderCards = () => {
-    if (data.length === 0) {
-      return null;
+    if (!Array.isArray(data)) {
+      return <Text>No records found</Text>;
     }
+  
+    if (data.length === 0) {
+      return <Text>get the data here</Text>;
+    }
+  
     return data.map((record, index) => (
       <ScrollView scrollEnabled={true} key={index}>
         <TouchableOpacity
