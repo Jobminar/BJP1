@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { Button, StyleSheet, Text, TextInput, View, StatusBar, TouchableOpacity, ScrollView, Platform, Share, ImageBackground, Image } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, StatusBar, TouchableOpacity, ScrollView, Platform, Share, ImageBackground, Image, Keyboard } from 'react-native';
 import axios from 'axios';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
@@ -139,7 +139,7 @@ export default function App() {
           onPress={() => setSelectedCard(index)}
         >
           <Text>Name: {record.NAME}</Text>
-          <Text>PS Name (English): {record.PS_NAME_EN}</Text>
+          <Text>PS Name:{record.PS_NAME_EN}</Text>
           <Text>House No: {record.C_HOUSE_NO}</Text>
           <Text>EPIC No: {record.EPIC_NO}</Text>
           <Text>Part No: {record.PART_NO}</Text>
@@ -155,10 +155,9 @@ export default function App() {
           <TextInput placeholder='voter id' value={newVid} onChangeText={setNewVid} style={styles.input}></TextInput>
           <TextInput placeholder='partno' value={newPartNo} onChangeText={setNewPartNo} style={styles.input}></TextInput>
           <TextInput placeholder='house no' value={newHouse} onChangeText={setNewHouse} style={styles.input}></TextInput>
-          <TouchableOpacity onPress={fetchData} style={styles.btn} >
-            <Text style={styles.buttonText}>Submit</Text>
+          <TouchableOpacity onPress={() => { fetchData(); Keyboard.dismiss(); }} style={styles.btn}>
+            <Text  style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
-
           <TouchableOpacity onPress={clear} style={styles.btn}>
             <Text style={styles.buttonText}>Clear</Text>
           </TouchableOpacity>
@@ -170,6 +169,7 @@ export default function App() {
           {selectedCard !== null ? (
             <View >
         <View style={{marginTop:100,backgroundColor:'white',alignItems:"center"}}>
+          <Text style={{fontSize:18}}>Vote For Sri Bandi Sanjay Kumar(BJP)</Text>
           <Image source={require('./assets/bjp.png')} style={{width:100,height:100}}></Image>
            <Text>Name: {data[selectedCard].NAME}</Text>
            <Text>PS name</Text>
@@ -178,6 +178,7 @@ export default function App() {
               <Text>EPIC No: {data[selectedCard].EPIC_NO}</Text>
               <Text>Part No: {data[selectedCard].PART_NO}</Text>
               <Text>Section-no: {data[selectedCard].SECTION_NO}</Text>
+              <Text style={{fontSize:17}}>Poling date:30 November 2023 7AM-6PM</Text>
 
            </View>
 
@@ -211,8 +212,7 @@ export default function App() {
           )}
         </ViewShot>
       </ScrollView>
-
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Powered by Jobminar & Sanjo Info Tech</Text>
       <StatusBar style="auto" />
     </ImageBackground>
   );
